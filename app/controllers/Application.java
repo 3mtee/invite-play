@@ -1,6 +1,7 @@
 package controllers;
 
 import models.Contact;
+import play.db.jpa.JPABase;
 import play.mvc.Controller;
 
 import java.util.ArrayList;
@@ -8,13 +9,14 @@ import java.util.List;
 
 public class Application extends Controller {
 
-	public static void index() {
-		render();
-	}
+    public static void index() {
+        final List<Contact> contacts = Contact.findAll();
+        render(contacts);
+    }
 
-	public static void index(List<Contact> contacts) {
-		render(contacts);
-	}
+    public static void index(List<Contact> contacts) {
+        render(contacts);
+    }
 
     public static void sendInvitations() {
         render();
@@ -30,16 +32,16 @@ public class Application extends Controller {
         renderJSON(result);
     }
 
-	public static void inviteCallback() {
+    public static void inviteCallback() {
+        if (Contact.count() == 0) {
+            new Contact("jwermuth@gmail.com", "Jesper").save();
+            new Contact("whabula@gmail.com", "Whabula").save();
+            new Contact("wrinkle@gmail.com", "John Smith").save();
+        }
 
-		new Contact("jwermuth@gmail.com", "Jesper").save();
-		new Contact("whabula@gmail.com", "Whabula").save();
-		new Contact("wrinkle@gmail.com", "John Smith").save();
-
-		// return rv;
-		List<Contact> contacts = Contact.findAll();
-		render("@index", contacts);
-	}
-
+        // return rv;
+        List<Contact> contacts = Contact.findAll();
+        render("@index", contacts);
+    }
 
 }
