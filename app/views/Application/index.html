@@ -1,15 +1,40 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
 
-<!-- #{welcome /} -->
+*{<!-- #{welcome /} -->}*
+<div style="margin: 60px; width: 700px;">
+    <div id="leftBlock" style="float: left">
+        <div id="oauthInviteBlock">
+            <span>Invite Friends</span>
 
-<div class="button"><a href="@{Invite.inviteGmail()}">Invite friends from gmail</a></div>
-<div class="button"><a href="@{Invite.inviteFacebook()}">Invite friends from facebook</a></div>
-<div class="button"><a href="@{Invite.inviteLinkedIn()}">Invite friends from linkedin</a></div>
+            <div class="button"><a href="@{Invite.inviteGmail()}">Select from gmail</a></div>
+            <div class="button"><a href="@{Invite.inviteFacebook()}">Select from facebook</a></div>
+            <div class="button"><a href="@{Invite.inviteLinkedIn()}">Select from linkedin</a></div>
+        </div>
+        <div id="emailInput" style="margin-top: 20px;">
+            <label for="emailAddress">Email</label><br>
+            <input type="text" name="emailAddress" id="emailAddress">
+        </div>
+
+        <div id="retrievedEmailAddresses" class="email-list" style="height: 100px; ">
+            <ul>
+            #{list items:contacts, as:'contact' }
+                <li>${contact.email}, ${contact.name}</li>
+            #{/list}
+            </ul>
+        </div>
+    </div>
+    <div id="rightBlock" style="float: right;">
+        <div class="button"><a href="#">Invite</a></div>
+        <div id="selectedEmailAddresses" class="email-list" style="height: 230px; ">
+            <ul>
+            <li>email</li>
+            <li>email</li>
+            <li>email</li>
+            <li>email</li>
+            </ul>
+        </div>
+    </div>
+</div>
 
 
-<ul>
-  #{list items:contacts, as:'contact' }
-        <li>${contact.email}, ${contact.name}</li>
-  #{/list}	
-</ul>
