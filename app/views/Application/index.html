@@ -17,7 +17,7 @@
             <span class="errormsg" id="emailError">Invalid email</span>
         </div>
 
-        <div id="retrievedEmailAddresses" class="email-list" style="height: 100px; ">
+        <div id="retrievedEmailAddresses" class="retrieved-email-list">
             <ul>
             #{list items:contacts, as:'contact' }
                 <li id="${contact.id}"><a href="javascript:selectEmail(${contact.id});">${contact.email}, ${contact.name}</a></li>
@@ -27,7 +27,7 @@
     </div>
     <div id="rightBlock" style="float: right;">
         <div class="button"><a href="@{Application.sendInvitations()}">Invite</a></div>
-        <div id="selectedEmailAddresses" class="email-list" style="height: 230px; ">
+        <div id="selectedEmailAddresses" class="selected-email-list" >
             <ul>
 
             </ul>

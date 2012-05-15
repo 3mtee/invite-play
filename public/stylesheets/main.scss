@@ -1,0 +1,75 @@
+$bodyColor: #364B66 !important;
+
+body {
+  background: $bodyColor;
+  color: white !important;
+}
+
+.button {
+  background-color: #82A346;
+  color: white;
+  border-radius: 8px;
+  border-width: 2px;
+  border-style: solid;
+  text-align: center;
+  width: 150px;
+  border: none;
+  margin: 10px;
+
+}
+
+a {
+  color: #ffff00;
+}
+
+
+.button a {
+  color: white;
+  text-decoration: none;
+}
+
+
+ul, menu, dir {
+  -webkit-padding-start: 20px;
+}
+
+.email-list {
+  border: 1px solid #aeaeae;
+  padding: 0 10px;
+  margin-top: 20px;
+  overflow: auto;
+  width: 300px;
+}
+
+.selected-email-list {
+  @extend .email-list;
+  height: 245px;
+}
+
+.retrieved-email-list {
+  @extend .email-list;
+  height: 100px;
+}
+
+span.deleteicon {
+  position: relative;
+}
+span.deleteicon span {
+  position: absolute;
+  display: block;
+  top: 0;
+  right: 0;
+  width: 16px;
+  height: 20px;
+  background: url('/public/images/sprites.png') 0 -2px;
+  cursor: pointer;
+}
+span.deleteicon input {
+  padding-right: 16px;
+}
+
+.errormsg {
+  color: red;
+  display: none;
+
+}
