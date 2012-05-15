@@ -26,4 +26,9 @@ public class MessageValue extends Model {
         this.language = language;
         this.value = value;
     }
+
+    @Override
+    public String toString() {
+        return language + ": " + value;
+    }
 }

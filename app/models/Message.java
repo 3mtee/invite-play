@@ -54,4 +54,9 @@ public class Message extends Model {
         }
         return "";
     }
+
+    @Override
+    public String toString() {
+        return messageKey;
+    }
 }
