@@ -21,7 +21,8 @@ public class MessageValue extends Model {
     public MessageValue() {
     }
 
-    public MessageValue(String language, String value) {
+    public MessageValue(String language, String value, Message message) {
+        this.message = message;
         this.language = language;
         this.value = value;
     }

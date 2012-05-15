@@ -18,12 +18,8 @@ public class Invitation extends Model {
     public boolean invitationAccepted;
     public Date timestamp;
 
-    public Invitation() {
-        this.invitationAccepted = false;
-        this.timestamp = new Date();
-    }
-
-    public Invitation(boolean invitationAccepted, Date timestamp) {
+    public Invitation(boolean invitationAccepted, Date timestamp, Contact contact) {
+        this.contact = contact;
         this.invitationAccepted = invitationAccepted;
         this.timestamp = timestamp;
     }

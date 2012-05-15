@@ -7,6 +7,7 @@ import javax.persistence.OneToMany;
 import play.db.jpa.Model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -23,7 +24,7 @@ public class Contact extends Model {
     public List<Invitation> invitations;
 
     public Contact addInvitation() {
-        final Invitation invitation = new Invitation();
+        final Invitation invitation = new Invitation(false, new Date(), this);
         this.invitations.add(invitation);
         this.save();
         return this;

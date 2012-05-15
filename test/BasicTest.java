@@ -7,10 +7,10 @@ public class BasicTest extends UnitTest {
 
     @Test
     public void messageTest() {
-        MessageValue enValue = new MessageValue("en", "Hello");
-        MessageValue ruValue = new MessageValue("en", "Привет");
-        Message message = new Message();
+        Message message = new Message().save();
         message.messageKey = "hello";
+        MessageValue enValue = new MessageValue("en", "Hello", message);
+        MessageValue ruValue = new MessageValue("en", "Привет", message);
         message.addValue(enValue);
         message.addValue(ruValue);
 
