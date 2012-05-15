@@ -26,7 +26,7 @@
         </div>
     </div>
     <div id="rightBlock" style="float: right;">
-        <div class="button"><a href="#">Invite</a></div>
+        <div class="button"><a href="@{Application.sendInvitations()}">Invite</a></div>
         <div id="selectedEmailAddresses" class="email-list" style="height: 230px; ">
             <ul>
 
@@ -43,6 +43,11 @@
         jQuery('input.deletable').wrap('<span class="deleteicon" />').after(jQuery('<span/>').click(function() {
             jQuery(this).prev('input').val('').focus();
         }));
+
+        jQuery("#emailAddress").autocomplete({
+            source: "@{Application.contacts()}",
+            minLength: 2
+        });
     });
 
     jQuery("#emailAddress").keyup(function(event) {

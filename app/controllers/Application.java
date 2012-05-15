@@ -1,11 +1,10 @@
 package controllers;
 
+import models.Contact;
+import play.mvc.Controller;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import models.Contact;
-import play.db.jpa.JPABase;
-import play.mvc.Controller;
 
 public class Application extends Controller {
 
@@ -16,6 +15,20 @@ public class Application extends Controller {
 	public static void index(List<Contact> contacts) {
 		render(contacts);
 	}
+
+    public static void sendInvitations() {
+
+    }
+
+    public static void contacts(String term) {
+        List<String> result = new ArrayList<String>();
+        final List<Contact> contacts = Contact.find("byEmailLike", "%" + term + "%").fetch();
+        for (Contact contact : contacts) {
+            final String email = contact.email;
+            result.add(email);
+        }
+        renderJSON(result);
+    }
 
 	public static void inviteCallback() {
 
