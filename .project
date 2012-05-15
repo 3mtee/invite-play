@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>invite</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+		<nature>org.playframework.playclipse.playNature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>jqueryui-1.0</name>
+			<type>2</type>
+			<location>/home/jaw/workspaces/play/ongroup/invite/modules/jqueryui-1.0/app</location>
+		</link>
+		<link>
+			<name>conf/jqueryui-1.0</name>
+			<type>2</type>
+			<location>/home/jaw/workspaces/play/ongroup/invite/modules/jqueryui-1.0/conf</location>
+		</link>
+		<link>
+			<name>public/jqueryui-1.0</name>
+			<type>2</type>
+			<location>/home/jaw/workspaces/play/ongroup/invite/modules/jqueryui-1.0/public</location>
+		</link>
+	</linkedResources>
+</projectDescription>
