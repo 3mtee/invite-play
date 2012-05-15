@@ -24,11 +24,12 @@
 
             <ul>
             #{list items:contacts, as:'contact' }
-                <li id="${contact.id}"><a href="javascript:selectEmail(${contact.id});">${contact.email}, ${contact.name}</a></li>
+                <li id="${contact.id}"><a href="javascript:selectEmail(${contact.id});">${contact.email}
+                    , ${contact.name}</a></li>
             #{/list}
             </ul>
         </div>
-        <div class="button"><a href="#">Add All</a></div>
+        <div class="button"><a href="javascript:selectAllEmails();">Add All</a></div>
     </div>
     <div id="rightBlock" style="float: right;">
         <div class="button"><a href="@{Application.sendInvitations()}">Invite</a></div>
@@ -36,12 +37,12 @@
         <div style="margin-top: 20px">
             <span>Click on an email to remove it from invitations list</span>
         </div>
-        <div id="selectedEmailAddresses" class="selected-email-list" >
+        <div id="selectedEmailAddresses" class="selected-email-list">
             <ul>
 
             </ul>
         </div>
-        <div class="button"><a href="#">Delete All</a></div>
+        <div class="button"><a href="javascript:deselectAllEmails();">Remove All</a></div>
     </div>
 </div>
 
@@ -50,29 +51,29 @@
     var filteredContactId = 0;
     var selectedEmailsSet = new Array();
 
-    jQuery(document).ready(function() {
-        jQuery('input.deletable').wrap('<span class="deleteicon" />').after(jQuery('<span/>').click(function() {
+    jQuery(document).ready(function () {
+        jQuery('input.deletable').wrap('<span class="deleteicon" />').after(jQuery('<span/>').click(function () {
             jQuery(this).prev('input').val('').focus();
         }));
 
         jQuery("#emailAddress").autocomplete({
-            source: "@{Application.contacts()}",
-            minLength: 2,
-            select: function( event, ui ) {
-                if ( ui.item) {
+            source:"@{Application.contacts()}",
+            minLength:2,
+            select:function (event, ui) {
+                if (ui.item) {
                     jQuery("#emailAddress").val(ui.item.label);
                     filteredContactId = ui.item.value;
                 }
 
                 return false;
             },
-            focus: function( event, ui ) {
+            focus:function (event, ui) {
                 return false;
             }
         });
     });
 
-    jQuery("#emailAddress").keyup(function(event) {
+    jQuery("#emailAddress").keyup(function (event) {
         var keyCode = event.keyCode;
         var $emailError = jQuery('#emailError');
         if (keyCode == 13) {
@@ -105,7 +106,7 @@
         var $listElement = jQuery("#" + id);
         $listElement.detach();
         var $link = jQuery($listElement.children()[0]);
-        $link.attr('href', 'javascript:deselectEmail(' + id  + ');');
+        $link.attr('href', 'javascript:deselectEmail(' + id + ');');
         var $selectedList = jQuery("#selectedEmailAddresses ul");
         $listElement.appendTo($selectedList);
         var href = $link.html();
@@ -117,7 +118,7 @@
         var $listElement = jQuery("#" + id);
         $listElement.detach();
         var $link = jQuery($listElement.children()[0]);
-        $link.attr('href', 'javascript:selectEmail(' + id  + ');');
+        $link.attr('href', 'javascript:selectEmail(' + id + ');');
         var href = $link.html();
         href = href.substring(0, href.lastIndexOf(','));
         var $retrievedList = jQuery("#retrievedEmailAddresses ul");
@@ -126,10 +127,26 @@
         delete selectedEmailsSet[indexOf];
     }
 
-    jQuery('.button').click(function() {
-        window.location=$(this).find("a").attr("href");
+    jQuery('.button').click(function () {
+        window.location = $(this).find("a").attr("href");
         return false;
     });
+
+    function selectAllEmails() {
+        jQuery("#retrievedEmailAddresses ul li").each(function () {
+            var $listElement = jQuery(this);
+            var id = $listElement.attr('id');
+            selectEmail(id);
+        });
+    }
+
+    function deselectAllEmails() {
+        jQuery("#selectedEmailAddresses ul li").each(function () {
+            var $listElement = jQuery(this);
+            var id = $listElement.attr('id');
+            deselectEmail(id);
+        });
+    }
 
 </script>
 
