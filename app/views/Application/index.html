@@ -36,6 +36,9 @@
 </div>
 
 <script>
+
+    var selectedEmailsSet = new Array();
+
     jQuery(document).ready(function() {
         jQuery('input.deletable').wrap('<span class="deleteicon" />').after(jQuery('<span/>').click(function() {
             jQuery(this).prev('input').val('').focus();
@@ -46,12 +49,17 @@
         var keyCode = event.keyCode;
         var $emailError = jQuery('#emailError');
         if (keyCode == 13) {
-            var email = jQuery(event.srcElement).val();
+            var $input = jQuery(event.srcElement);
+            var email = $input.val();
             if (validateEmail(email)) {
-                var $list = jQuery('#selectedEmailAddresses ul');
-                var $listElement = jQuery('<li>' + email + '</li>');
-                $listElement.appendTo($list);
-                $emailError.hide();
+                if (selectedEmailsSet.indexOf(email) == -1) {
+                    var $list = jQuery('#selectedEmailAddresses ul');
+                    var $listElement = jQuery('<li>' + email + '</li>');
+                    $listElement.appendTo($list);
+                    $emailError.hide();
+                    selectedEmailsSet.push(email);
+                    $input.val('');
+                }
             } else {
                 $emailError.show();
             }
