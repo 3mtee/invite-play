@@ -13,7 +13,8 @@
         </div>
         <div id="emailInput" style="margin-top: 20px;">
             <label for="emailAddress">Email</label><br>
-            <input type="text" name="emailAddress" id="emailAddress">
+            <input type="text" name="emailAddress" id="emailAddress" class="deletable">
+            <span class="errormsg" id="emailError">Invalid email</span>
         </div>
 
         <div id="retrievedEmailAddresses" class="email-list" style="height: 100px; ">
@@ -28,13 +29,40 @@
         <div class="button"><a href="#">Invite</a></div>
         <div id="selectedEmailAddresses" class="email-list" style="height: 230px; ">
             <ul>
-            <li>email</li>
-            <li>email</li>
-            <li>email</li>
-            <li>email</li>
+
             </ul>
         </div>
     </div>
 </div>
+
+<script>
+    jQuery(document).ready(function() {
+        jQuery('input.deletable').wrap('<span class="deleteicon" />').after(jQuery('<span/>').click(function() {
+            jQuery(this).prev('input').val('').focus();
+        }));
+    });
+
+    jQuery("#emailAddress").keyup(function(event) {
+        var keyCode = event.keyCode;
+        var $emailError = jQuery('#emailError');
+        if (keyCode == 13) {
+            var email = jQuery(event.srcElement).val();
+            if (validateEmail(email)) {
+                var $list = jQuery('#selectedEmailAddresses ul');
+                var $listElement = jQuery('<li>' + email + '</li>');
+                $listElement.appendTo($list);
+                $emailError.hide();
+            } else {
+                $emailError.show();
+            }
+        }
+    });
+
+    function validateEmail(email) {
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+    }
+
+</script>
 
 

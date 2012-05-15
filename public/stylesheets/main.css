@@ -17,3 +17,26 @@ ul, menu, dir {
     overflow: auto;
     width: 300px;
 }
+
+span.deleteicon {
+    position: relative;
+}
+span.deleteicon span {
+    position: absolute;
+    display: block;
+    top: 0;
+    right: 0;
+    width: 16px;
+    height: 20px;
+    background: url('/public/images/sprites.png') 0 -2px;
+    cursor: pointer;
+}
+span.deleteicon input {
+    padding-right: 16px;
+}
+
+.errormsg {
+    color: red;
+    display: none;
+
+}
