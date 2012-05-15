@@ -6,7 +6,7 @@ import models.*;
 public class BasicTest extends UnitTest {
 
     @Test
-    public void MessageTest() {
+    public void messageTest() {
         MessageValue enValue = new MessageValue("en", "Hello");
         MessageValue ruValue = new MessageValue("en", "Привет");
         Message message = new Message();
@@ -14,9 +14,20 @@ public class BasicTest extends UnitTest {
         message.addValue(enValue);
         message.addValue(ruValue);
 
-        Message.getTranslation("en", "hello");
+        final String translation = Message.getTranslation("en", "hello");
+        assertEquals(translation, "Hello");
+
 
 
     }
+
+    @Test
+    public void contactTest() {
+        Contact contact = new Contact("emtee@gmail.com", "emtee");
+        contact.addInvitation();
+
+        assertEquals(contact.invitations.size(), 1);
+    }
+
 
 }
