@@ -31,7 +31,7 @@ public class Message extends Model {
     }
 
     public Message addValue(String language, String value) {
-        final MessageValue messageValue = new MessageValue(language, value);
+        final MessageValue messageValue = new MessageValue(language, value, this);
         this.values.add(messageValue);
         this.save();
         return this;
