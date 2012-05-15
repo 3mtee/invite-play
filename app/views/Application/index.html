@@ -68,10 +68,11 @@
         if (keyCode == 13) {
             var $input = jQuery(event.srcElement);
             var email = $input.val();
+
             if (validateEmail(email)) {
                 if (selectedEmailsSet.indexOf(email) == -1) {
                     $emailError.hide();
-                    selectedEmailsSet.push(email);
+//                    selectedEmailsSet.push(email);
                     $input.val('');
 
                     if (filteredContactId != 0) {
@@ -97,6 +98,9 @@
         $link.attr('href', 'javascript:deselectEmail(' + id  + ');');
         var $selectedList = jQuery("#selectedEmailAddresses ul");
         $listElement.appendTo($selectedList);
+        var href = $link.html();
+        href = href.substring(0, href.lastIndexOf(','));
+        selectedEmailsSet.push(href);
     }
 
     function deselectEmail(id) {
@@ -104,8 +108,12 @@
         $listElement.detach();
         var $link = jQuery($listElement.children()[0]);
         $link.attr('href', 'javascript:selectEmail(' + id  + ');');
+        var href = $link.html();
+        href = href.substring(0, href.lastIndexOf(','));
         var $retrievedList = jQuery("#retrievedEmailAddresses ul");
         $listElement.appendTo($retrievedList);
+        var indexOf = selectedEmailsSet.indexOf(href);
+        delete selectedEmailsSet[indexOf];
     }
 
     jQuery('.button').click(function() {
