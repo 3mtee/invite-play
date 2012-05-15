@@ -1,5 +1,6 @@
 package models;
 
+import play.db.jpa.GenericModel;
 import play.db.jpa.Model;
 
 import javax.persistence.CascadeType;
@@ -14,24 +15,39 @@ import java.util.List;
  */
 @Entity
 public class Message extends Model {
-    public String key;
+    public String messageKey;
 
     @OneToMany(mappedBy = "message", cascade = CascadeType.ALL)
     public List<MessageValue> values;
 
     public Message() {
-        this.key = "";
+        this.messageKey = "";
         this.values = new ArrayList<MessageValue>();
     }
 
-    public Message(String key, List<MessageValue> values) {
-        this.key = key;
+    public Message(String messageKey, List<MessageValue> values) {
+        this.messageKey = messageKey;
         this.values = values;
     }
 
-    public String getTranslation(String language) {
-        //not sure if there's a way to use persistence instead of loop
-        for (MessageValue value : values) {
+    public Message addValue(String language, String value) {
+        final MessageValue messageValue = new MessageValue(language, value);
+        this.values.add(messageValue);
+        this.save();
+        return this;
+    }
+
+    public Message addValue(MessageValue value) {
+        this.values.add(value);
+        this.save();
+        return this;
+    }
+
+    public static String getTranslation(String language, String key) {
+        //TODO: replace with JPA
+        final Message message = Message.find("byMessageKey", key).first();
+
+        for (MessageValue value : message.values) {
             if (value.language.equals(language)) {
                 return value.value;
             }

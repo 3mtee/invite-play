@@ -17,12 +17,12 @@ public class Application extends Controller {
 	}
 
     public static void sendInvitations() {
-
+        render();
     }
 
     public static void contacts(String term) {
         List<String> result = new ArrayList<String>();
-        final List<Contact> contacts = Contact.find("byEmailLike", "%" + term + "%").fetch();
+        final List<Contact> contacts = Contact.find("byEmailLike", term + "%").fetch();
         for (Contact contact : contacts) {
             final String email = contact.email;
             result.add(email);
