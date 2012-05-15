@@ -1,5 +1,7 @@
 package controllers;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import models.Contact;
 import play.db.jpa.JPABase;
 import play.mvc.Controller;
@@ -23,13 +25,19 @@ public class Application extends Controller {
     }
 
     public static void contacts(String term) {
+        JsonArray array = new JsonArray();
         List<String> result = new ArrayList<String>();
         final List<Contact> contacts = Contact.find("byEmailLike", term + "%").fetch();
         for (Contact contact : contacts) {
+            JsonObject obj = new JsonObject();
             final String email = contact.email;
             result.add(email);
+            obj.addProperty("label", email);
+            obj.addProperty("value", contact.id);
+            array.add(obj);
         }
-        renderJSON(result);
+//        renderJSON(result);
+        renderText(array.toString());
     }
 
     public static void inviteCallback() {

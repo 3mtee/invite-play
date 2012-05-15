@@ -37,6 +37,7 @@
 
 <script>
 
+    var filteredContactId = 0;
     var selectedEmailsSet = new Array();
 
     jQuery(document).ready(function() {
@@ -46,7 +47,18 @@
 
         jQuery("#emailAddress").autocomplete({
             source: "@{Application.contacts()}",
-            minLength: 2
+            minLength: 2,
+            select: function( event, ui ) {
+                if ( ui.item) {
+                    jQuery("#emailAddress").val(ui.item.label);
+                    filteredContactId = ui.item.value;
+                }
+
+                return false;
+            },
+            focus: function( event, ui ) {
+                return false;
+            }
         });
     });
 
@@ -58,12 +70,14 @@
             var email = $input.val();
             if (validateEmail(email)) {
                 if (selectedEmailsSet.indexOf(email) == -1) {
-                    var $list = jQuery('#selectedEmailAddresses ul');
-                    var $listElement = jQuery('<li>' + email + '</li>');
-                    $listElement.appendTo($list);
                     $emailError.hide();
                     selectedEmailsSet.push(email);
                     $input.val('');
+
+                    if (filteredContactId != 0) {
+                        selectEmail(filteredContactId);
+                        filteredContactId = 0;
+                    }
                 }
             } else {
                 $emailError.show();
