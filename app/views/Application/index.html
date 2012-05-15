@@ -17,7 +17,11 @@
             <span class="errormsg" id="emailError">Invalid email</span>
         </div>
 
+        <div style="margin-top: 20px">
+            <span>Click on an email to select it for invitation</span>
+        </div>
         <div id="retrievedEmailAddresses" class="retrieved-email-list">
+
             <ul>
             #{list items:contacts, as:'contact' }
                 <li id="${contact.id}"><a href="javascript:selectEmail(${contact.id});">${contact.email}, ${contact.name}</a></li>
@@ -27,6 +31,10 @@
     </div>
     <div id="rightBlock" style="float: right;">
         <div class="button"><a href="@{Application.sendInvitations()}">Invite</a></div>
+
+        <div style="margin-top: 20px">
+            <span>Click on an email to remove it from invitations list</span>
+        </div>
         <div id="selectedEmailAddresses" class="selected-email-list" >
             <ul>
 
